@@ -12,6 +12,13 @@ set(CMAKE_CONFIGURE_DEPENDS_NEW OFF CACHE INTERNAL "" FORCE)
 
 include_directories(SYSTEM /opt/homebrew/include)
 
+# Link libraries dynamically
+find_package(spdlog REQUIRED)
+find_package(fmt REQUIRED)
+find_package(nlohmann_json REQUIRED)
+find_package(cpr REQUIRED)
+
+
 # === File Discovery ===
 file(GLOB_RECURSE ALL_SRC CONFIGURE_DEPENDS src/*.cpp)
 file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS header/*.hpp)
@@ -35,27 +42,10 @@ list(APPEND ALL_HEADERS ${HEADER_FILES} ${UTILS_HEADERS})
 
 
 # === Source grouping (optional for Xcode) ===
-foreach(file ${SRC_FILES})
-    source_group("src" FILES ${file})
-endforeach()
-
-
-foreach(file ${UTILS_HEADERS})
-    source_group("utils" FILES ${file})
-endforeach()
-
-foreach(file ${UTILS_SRC})
-    source_group("utils" FILES ${file})
-endforeach()
-
-
-foreach(file ${HEADER_FILES})
-    source_group("header" FILES ${file})
-endforeach()
-
-foreach(file ${TEST_FILES})
-    source_group("unit_tests" FILES ${file})
-endforeach()
+source_group(TREE ${CMAKE_SOURCE_DIR}/src PREFIX "src" FILES ${SRC_FILES})
+source_group(TREE ${CMAKE_SOURCE_DIR}/header PREFIX "header" FILES ${HEADER_FILES})
+source_group(TREE ${CMAKE_SOURCE_DIR}/utils PREFIX "utils" FILES ${UTILS_SRC} ${UTILS_HEADERS})
+source_group(TREE ${CMAKE_SOURCE_DIR}/unit_tests PREFIX "unit_tests" FILES ${TEST_FILES})
 
 
 # === Shared Library ===
@@ -84,11 +74,20 @@ target_include_directories(test_environment PRIVATE
 
 add_test(NAME AllTests COMMAND test_environment)
 
-# Path to config.json
-set(CONFIG_JSON ${CMAKE_CURRENT_SOURCE_DIR}/config.json)
+# === Copy resources/ folder (e.g. config.json) ===
+add_custom_command(TARGET left_behind POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:left_behind>/config
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_SOURCE_DIR}/config.json
+        $<TARGET_FILE_DIR:left_behind>/config/config.json
+    COMMENT "Copying config.json to build output directory"
+)
 
-# Attach it to the executable
-target_sources(left_behind PRIVATE ${CONFIG_JSON})
-
-# Optional: Group it visually in Xcode under "Config"
-source_group("config" FILES ${CONFIG_JSON})
+# === Optionally define config path for use in C++ ===
+target_compile_definitions(left_behind PRIVATE "CONFIG_PATH=\"config/config.json\"")
+target_link_libraries(left_behind PRIVATE
+        cpr::cpr
+        nlohmann_json::nlohmann_json
+        fmt::fmt
+        spdlog::spdlog
+)
