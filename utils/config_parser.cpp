@@ -9,6 +9,7 @@ Config Config::from_json(const std::string& path) {
 
     Config config;
     std::vector<std::string> keys = {
+        "STANDARISED_INPUT",
         "STUDENTS_DATA",
         "ALPHA_VENTAGE_API_KEY",
         "FRED_API_KEY",
