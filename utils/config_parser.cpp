@@ -4,8 +4,8 @@
 #include <stdexcept>
 
 Config Config::from_json(const std::string& path) {
-    JsonLoader::load(path);
-    const auto& jsonContent = JsonLoader::getJson();
+    JsonLoader::load("config",path);
+    const auto& jsonContent = JsonLoader::getJson("config");
 
     Config config;
     std::vector<std::string> keys = {
