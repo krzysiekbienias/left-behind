@@ -25,6 +25,18 @@ std::vector<std::string>URLStore:: getURL(const std::string& token){
     return results;
 }
 
+bool URLStore::deleteUrl (const std::string& token, const std::string& url){
+    auto it=storage.find(token);
+    if (it!=storage.end()) return false; // becasue if we cannot find token we cannot erase
+    bool erased=it->second.erase(url)>0;
+    // it may also happen that there is only one url in for a token, then we want to remove as well token to not being left with empty set
+    if(it->second.empty()){
+        storage.erase(it);
+    }
+    return erased;
+    
+}
+
 void URLStore::print() const {
         for (const auto& [token, urls] : storage) {
             std::cout << token << ":\n";
