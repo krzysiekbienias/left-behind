@@ -1,6 +1,8 @@
 #include "order_matching_engine/raw_order.hpp"
 #include "order_matching_engine/order.hpp"
 #include "order_matching_engine/order_factory.hpp"
+#include "../utils/string_utils.hpp"
+#include "../utils/logger.hpp"
 
 Order OrderFactory::createValidatedOrder(const RawOrder& raw)const {
     char action =validateAction(raw.action);
@@ -10,7 +12,7 @@ Order OrderFactory::createValidatedOrder(const RawOrder& raw)const {
     char orderType=validateOrderType(raw.orderType);
     char side=validateSide(raw.side);
     float price=validatePrice(raw.price);
-    int quantity=validateQuantity(raw.quantity);
+    int quantity=validateQuantity(raw.quantity,raw.orderId);
     return Order{action,orderId,timeStamp,symbol,orderType,side,price,quantity};
     
 }
@@ -83,18 +85,26 @@ float OrderFactory::validatePrice(const std::string &priceToken) const{
     
 }
 
-int OrderFactory::validateQuantity(const std::string &quantityToken) const{
-    try{
-        int quantity=std::stoi(quantityToken);
-        if (quantity<=0){
-            throw std::invalid_argument("Order Id must be positive number "+quantityToken);
-            
+int OrderFactory::validateQuantity(const std::string& quantityToken, const std::string& orderIdToken) const {
+    try {
+        if (!StringUtils::isAllDigits(quantityToken)) {
+            Logger::get()->error("{} - Reject - 303 - Invalid order details", orderIdToken);
+            throw std::invalid_argument("Quantity must be a positive integer");
         }
+
+        int quantity = std::stoi(quantityToken);
+        if (quantity <= 0) {
+            Logger::get()->error("{} - Reject - 303 - Invalid order details", orderIdToken);
+            throw std::invalid_argument("Quantity must be greater than zero");
+        }
+        Logger::get()->info("{} - Accepted", orderIdToken);
         return quantity;
-    }
-    catch(const std::exception& e){
-        throw std::invalid_argument("invalid order ID "+quantityToken);
+    } catch (const std::exception& e) {
+        Logger::get()->error("{} - Reject - 303 - Invalid order details", orderIdToken);
+        throw;  // rethrow so upper layer can handle if needed
     }
 }
+
+
 
 

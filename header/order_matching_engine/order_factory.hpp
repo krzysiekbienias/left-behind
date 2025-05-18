@@ -12,5 +12,5 @@ private:
     char validateOrderType(const std::string& orderTypeToken)const;
     char validateSide(const std::string& sideToken)const;
     float validatePrice(const std::string& priceToken)const;
-    int validateQuantity(const std::string& quantityToken)const;
+    int validateQuantity(const std::string& quantityToken,const std::string& orderIdToken)const;
 };
