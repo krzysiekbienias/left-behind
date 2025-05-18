@@ -83,18 +83,52 @@ namespace print_utils {
         }
     }
 
-    // map<float, deque<CustomType>> — generic handler with formatter
-    template <typename T>
-    void printMapOfDeque(const std::map<float, std::deque<T>>& m, const std::string& label = "") {
+    template <typename K, typename V>
+    void printMapOfDeque(const std::map<K, std::deque<V>>& m, const std::string& label = "") {
         if (!label.empty()) std::cout << label << ":\n";
-        for (const auto& [price, orders] : m) {
-            std::cout << "  " << price << ": ";
-            for (const auto& order : orders) {
-                std::cout << "[" << order << "] "; // customize this per your `Order`
+        for (const auto& [key, dq] : m) {
+            std::cout << "  " << key << " -> ";
+            for (const auto& item : dq) {
+                std::cout << item << " ";
             }
             std::cout << "\n";
         }
     }
+    
+    template <typename K, typename V>
+    void printMapOfUnorderedSets(const std::map<K, std::unordered_set<V>>& m, const std::string& label = "") {
+        if (!label.empty()) std::cout << label << ":\n";
+        for (const auto& [key, uset] : m) {
+            std::cout << "  " << key << " -> { ";
+            for (const auto& item : uset) {
+                std::cout << item << " ";
+            }
+            std::cout << "}\n";
+        }
+    }
+
+    
+template <typename K, typename V>
+void printUnorderedMapOfUnorderedSets(const std::unordered_map<K, std::unordered_set<V>>& m, const std::string& label = "") {
+    if (!label.empty()) std::cout << label << ":\n";
+    for (const auto& [key, uset] : m) {
+        std::cout << "  " << key << " -> { ";
+        for (const auto& item : uset) {
+            std::cout << item << " ";
+        }
+        std::cout << "}\n";
+    }
+}
+
+void printBoxedLabel(const std::string& label, int totalWidth = 40) {
+    const int padding = 2; // for '| ' and ' |'
+    int contentWidth = totalWidth - padding;
+
+    std::cout << "\n+" << std::string(contentWidth, '=') << "+\n";
+    std::cout << "| " << label << std::string(contentWidth - label.length(), ' ') << "|\n";
+    std::cout << "+" << std::string(contentWidth, '=') << "+\n";
+}
+
 
 }
 
