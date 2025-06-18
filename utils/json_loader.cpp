@@ -1,5 +1,5 @@
 #include "json_loader.hpp"
-#include "logger.hpp"  // Optional: your logger
+#include "logger.hpp"
 #include <fstream>
 #include <stdexcept>
 

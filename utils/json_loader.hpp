@@ -6,7 +6,33 @@
 #include <nlohmann/json.hpp>
 #include "logger.hpp"
 
+
+/**
+ * @class JsonLoader
+ * @brief Static utility class to manage loading and retrieving JSON files using unique identifiers.
+ *
+ * The JsonLoader class provides a centralized way to load JSON files from disk once and
+ * retrieve values by tag, using an identifier-based lookup system. It uses a static map to
+ * cache loaded JSON objects and avoid redundant I/O.
+ *
+ * Example usage:
+ * @code
+ * JsonLoader::load("config", "config/settings.json");
+ * int threads = loader.getValue<int>("config", "thread_count");
+ * @endcode
+ *
+ * - Each JSON file is identified by a unique string (e.g., "config", "user_data").
+ * - If a key is missing, getValue() logs a warning and throws std::runtime_error.
+ *
+ * @note All methods are static or behave as such; the class does not require instantiation.
+ */
+
 class JsonLoader {
+    
+private:
+    static inline std::unordered_map<std::string,nlohmann::json> loadedJsons;
+
+    
 public:
     static void load(const std::string&  jsonIdentifier,const std::string& path);
     
@@ -22,8 +48,6 @@ public:
     
     static const nlohmann::json& getJson(const std::string&  jsonIdentifier);
 
-private:
-    static inline std::unordered_map<std::string,nlohmann::json> loadedJsons;
 };
 
 #endif // CONFIG_LOADER_HPP
