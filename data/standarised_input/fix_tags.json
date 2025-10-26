@@ -1,0 +1,31 @@
+{
+  "8": "BeginString",
+  "9": "BodyLength",
+  "35": {
+    "name": "MsgType",
+    "values": {
+      "D": "NewOrderSingle",
+      "F": "CancelRequest"
+    }
+  },
+  "49": "SenderCompID",
+  "56": "TargetCompID",
+  "11": "ClOrdID",
+  "55": "Symbol",
+  "54": {
+    "name": "Side",
+    "values": {
+      "1": "Buy",
+      "2": "Sell"
+    }
+  },
+  "38": "OrderQty",
+  "40": {
+    "name": "OrdType",
+    "values": {
+      "1": "Market",
+      "2": "Limit"
+    }
+  },
+  "10": "CheckSum"
+}

@@ -1,0 +1,27 @@
+<swap>
+  <swapStream>
+    <payerPartyReference href="Party1"/>
+    <receiverPartyReference href="Party2"/>
+    <notionalSchedule>
+      <notionalStepSchedule>
+        <initialValue>10000000</initialValue>
+      </notionalStepSchedule>
+    </notionalSchedule>
+    <calculation>
+      <fixedRateSchedule>
+        <initialValue>0.025</initialValue>
+      </fixedRateSchedule>
+    </calculation>
+  </swapStream>
+  <swapStream> <!-- floating leg -->
+    <calculation>
+      <floatingRateCalculation>
+        <floatingRateIndex>LIBOR</floatingRateIndex>
+        <indexTenor>
+          <periodMultiplier>3</periodMultiplier>
+          <period>M</period>
+        </indexTenor>
+      </floatingRateCalculation>
+    </calculation>
+  </swapStream>
+</swap>
