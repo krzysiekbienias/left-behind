@@ -13,7 +13,7 @@ bool ParkingSystem::addCar(int carType){
     }
     if (carType==1 && m_big_slots) {
         --m_big_slots;
-        
+        return true;
     }
     return false;
 }
