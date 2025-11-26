@@ -9,16 +9,14 @@ using namespace stl;
 ShuffleArray::ShuffleArray(vector<int>&nums):mState(nums),mOrginal(nums){}
 
 vector<int>ShuffleArray::shuffle() {
-    if (mState.empty()) return {};
-    size_t n= mState.size()-1;
-    static thread_local std::mt19937 rng(std::random_device{}()); //one generator, seed fixed once
-    std::uniform_int_distribution<size_t> dist(0,n);
-    size_t i=dist(rng);
-    while (n>0) {
-        std::swap(mState[n],mState[i]);
-        n--;
+       if (mState.empty()) return{} ;
+     size_t n= mState.size()-1;
+     static thread_local std::mt19937 rng(std::random_device{}()); //one generator, seed fixed once
+     for (size_t i = n - 1; i > 0; --i) {
+        std::uniform_int_distribution<size_t> dist(0, i);
+        size_t j = dist(rng);
+        std::swap(mState[i], mState[j]);
     }
-    return mState;
 }
 
 vector<int>ShuffleArray::reset() {
