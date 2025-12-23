@@ -6,8 +6,13 @@ using namespace io;
 class Complex
 {
 public:
-    int a,b;
+    int a;
+    int b;
+    Complex(int a=0,int b=0);
+
     void input(string s);
+
+    Complex operator+(const Complex& other) const;
 
 };
 
