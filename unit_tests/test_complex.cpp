@@ -156,3 +156,25 @@ TEST(ComplexModulus, SymmetricForSigns) {
     EXPECT_DOUBLE_EQ(z1.modulus(), z3.modulus());
     EXPECT_DOUBLE_EQ(z1.modulus(), z4.modulus());
 }
+
+
+// ----------------------------
+// modulus() tests with epsilon
+// ----------------------------
+
+TEST(ComplexModulus, WorksWithNonTrivialValues) {
+    Complex z(1, 1);
+    double expected = std::sqrt(2.0);
+    EXPECT_NEAR(z.modulus(), expected, 1e-9);
+}
+
+TEST(ComplexModulus, LargerValuesEpsilonCheck) {
+    Complex z(123, 456);
+    double expected = std::sqrt(123.0 * 123.0 + 456.0 * 456.0);
+    EXPECT_NEAR(z.modulus(), expected, 1e-9);
+}
+
+TEST(ComplexModulus, ModulusEqualsConjugateModulus) {
+    Complex z(3, -7);
+    EXPECT_NEAR(z.modulus(), z.conjugate().modulus(), 1e-9);
+}
