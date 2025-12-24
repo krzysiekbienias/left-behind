@@ -67,3 +67,56 @@ TEST(ComplexPlus, DoesNotMutateOperands) {
     expectComplexEq(c2, 2, 5);
 }
 
+// ----------------------------
+// conjugate() tests
+// ----------------------------
+
+TEST(ComplexConjugate, FlipsImaginarySign) {
+    Complex z(3, 5);
+    Complex c = z.conjugate();
+    EXPECT_EQ(c.a, 3);
+    EXPECT_EQ(c.b, -5);
+}
+
+TEST(ComplexConjugate, WorksForNegativeImaginary) {
+    Complex z(3, -5);
+    Complex c = z.conjugate();
+    EXPECT_EQ(c.a, 3);
+    EXPECT_EQ(c.b, 5);
+}
+
+TEST(ComplexConjugate, ZeroImaginaryStaysZero) {
+    Complex z(7, 0);
+    Complex c = z.conjugate();
+    EXPECT_EQ(c.a, 7);
+    EXPECT_EQ(c.b, 0);
+}
+
+TEST(ComplexConjugate, ZeroZeroStaysZeroZero) {
+    Complex z(0, 0);
+    Complex c = z.conjugate();
+    EXPECT_EQ(c.a, 0);
+    EXPECT_EQ(c.b, 0);
+}
+
+TEST(ComplexConjugate, DoesNotMutateOriginal) {
+    Complex z(3, 5);
+    Complex c = z.conjugate();
+
+    // original unchanged
+    EXPECT_EQ(z.a, 3);
+    EXPECT_EQ(z.b, 5);
+
+    // conjugate correct
+    EXPECT_EQ(c.a, 3);
+    EXPECT_EQ(c.b, -5);
+}
+
+// Optional "property-like" test: conjugate twice gives original
+TEST(ComplexConjugate, DoubleConjugateGivesOriginal) {
+    Complex z(-12, 34);
+    Complex back = z.conjugate().conjugate();
+    EXPECT_EQ(back.a, z.a);
+    EXPECT_EQ(back.b, z.b);
+}
+
