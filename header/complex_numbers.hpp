@@ -13,6 +13,8 @@ public:
     void input(string s);
 
     Complex operator+(const Complex& other) const;
+    Complex conjugate() const;
+
 
 };
 

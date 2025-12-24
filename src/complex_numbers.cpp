@@ -74,6 +74,11 @@ Complex Complex::operator+(const Complex& other) const {
     return Complex(a + other.a, b + other.b);
 }
 
+
+Complex Complex::conjugate() const {
+    return Complex(a,-b);
+}
+
 std::ostream &operator <<(std::ostream &os, const Complex &c) {
     return os << c.a << "+" << c.b<<"i";
 }
