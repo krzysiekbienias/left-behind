@@ -14,6 +14,7 @@ public:
 
     Complex operator+(const Complex& other) const;
     Complex conjugate() const;
+    float modulus() const;
 
 
 };
