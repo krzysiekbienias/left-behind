@@ -120,3 +120,39 @@ TEST(ComplexConjugate, DoubleConjugateGivesOriginal) {
     EXPECT_EQ(back.b, z.b);
 }
 
+#include <cmath>
+
+// ----------------------------
+// modulus() tests
+// ----------------------------
+
+TEST(ComplexModulus, ZeroIsZero) {
+    Complex z(0, 0);
+    EXPECT_DOUBLE_EQ(z.modulus(), 0.0);
+}
+
+TEST(ComplexModulus, PureReal) {
+    Complex z(5, 0);
+    EXPECT_DOUBLE_EQ(z.modulus(), 5.0);
+}
+
+TEST(ComplexModulus, PureImag) {
+    Complex z(0, -7);
+    EXPECT_DOUBLE_EQ(z.modulus(), 7.0);
+}
+
+TEST(ComplexModulus, ThreeFourFive) {
+    Complex z(3, 4);
+    EXPECT_DOUBLE_EQ(z.modulus(), 5.0);
+}
+
+TEST(ComplexModulus, SymmetricForSigns) {
+    Complex z1(3, 4);
+    Complex z2(-3, 4);
+    Complex z3(3, -4);
+    Complex z4(-3, -4);
+
+    EXPECT_DOUBLE_EQ(z1.modulus(), z2.modulus());
+    EXPECT_DOUBLE_EQ(z1.modulus(), z3.modulus());
+    EXPECT_DOUBLE_EQ(z1.modulus(), z4.modulus());
+}
