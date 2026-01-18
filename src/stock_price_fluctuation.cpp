@@ -1,6 +1,6 @@
 #include<unordered_map>
 #include<map>
-#include <stock_price_combination.hpp>
+#include <stock_price_fluctuation.hpp>
 
 void StockPrice::update(int timeStamp, int price){
     //Step 1: If timestamp already exists, we must correct its previous price

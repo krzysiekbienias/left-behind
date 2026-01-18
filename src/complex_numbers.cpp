@@ -79,7 +79,7 @@ Complex Complex::conjugate() const {
     return Complex(a,-b);
 }
 
-float Complex::modulus() const {
+double Complex::modulus() const {
     return sqrt(a*a+b*b);
 }
 
