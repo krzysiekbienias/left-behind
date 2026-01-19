@@ -11,6 +11,6 @@ public:
         bool check(int number);
         void release(int number);
 private:
-        deque<int> freeNumbers;
+        std::deque<int> freeNumbers;
         vector<bool> used;
 };
