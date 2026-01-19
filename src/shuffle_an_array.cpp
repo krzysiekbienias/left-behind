@@ -9,7 +9,7 @@ using namespace stl;
 ShuffleArray::ShuffleArray(vector<int>&nums):mState(nums),mOrginal(nums){}
 
 vector<int>ShuffleArray::shuffle() {
-       if (mState.empty()) return{} ;
+       if (mState.empty()) return mState ;
      size_t n= mState.size()-1;
      static thread_local std::mt19937 rng(std::random_device{}()); //one generator, seed fixed once
      for (size_t i = n - 1; i > 0; --i) {
@@ -17,6 +17,7 @@ vector<int>ShuffleArray::shuffle() {
         size_t j = dist(rng);
         std::swap(mState[i], mState[j]);
     }
+    return mState;
 }
 
 vector<int>ShuffleArray::reset() {
