@@ -2,7 +2,7 @@
 #include "string_utils.hpp"  // Adjust the path based on your project structure
 
 
-using namespace StringUtils;
+using namespace string_utils;
 
 TEST(IsAllDigitsTest, ReturnsFalseOnEmptyString) {
     EXPECT_FALSE(isAllDigits(""));
