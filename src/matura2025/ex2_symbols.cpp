@@ -60,5 +60,5 @@ void countHomegenous3x3Squares(const std::vector<std::string> &grid) {
       }
     }
   }
-  return count;
+
 }
