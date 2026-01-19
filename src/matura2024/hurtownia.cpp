@@ -25,7 +25,7 @@ void Sprzedaz::loadData(std::string fileName){
     std::ifstream file("../../data/matura2024/"+fileName);
     if (!file) {
         std::cerr << "Failed to open file.\n";
-        return 1;
+
     }
     std::string line;
     while (std::getline(file, line)) {
