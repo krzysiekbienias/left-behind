@@ -33,6 +33,7 @@
 
 # === CMake generated ===
 CMakeFiles/
+
 CMakeCache.txt
 cmake_install.cmake
 Makefile
@@ -65,10 +66,13 @@ DerivedData/
 
 # === System files ===
 .DS_Store
-Thumbs.db
+Thumbs.dbľ
 
 # === Backup & temp files ===
 *~
 *.swp
 *.swo
 *.tmp
+
+# === foders with data ===
+data/
