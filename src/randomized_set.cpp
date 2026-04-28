@@ -17,9 +17,10 @@ bool RandomizedSet::insert(int val) {
 }
 
 bool RandomizedSet::remove(int val) {
-
+//later
 }
 
 int RandomizedSet::getRandom() {
-    return -1;
+    int randomIdx=std::rand()%m_v.size();
+    return m_v[randomIdx];
 }
