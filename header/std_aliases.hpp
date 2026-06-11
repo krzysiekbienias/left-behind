@@ -37,6 +37,7 @@ namespace stl {
     using std::queue;
     using std::priority_queue;
     using std::stack;
+    using std::deque;
 
 
     // Krótsze aliasy szablonowe (opcjonalnie)
