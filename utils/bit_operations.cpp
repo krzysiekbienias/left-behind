@@ -1,4 +1,5 @@
 # include<string>
+# include<algorithm>
 # include "bit_operations.hpp"
 
 std::string toBinary(int n){

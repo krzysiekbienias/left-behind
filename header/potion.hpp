@@ -1,5 +1,6 @@
 #pragma once
-#include<array>
+#include <array>
+#include <string>
 
 using uch = unsigned char;
 std::string colorToString(std::array<uch,3>col);

@@ -1,6 +1,8 @@
-#include <vector>
-#include <unordered_map>
 #include "randomized_set.hpp"
+
+#include <cstdlib>
+#include <unordered_map>
+#include <vector>
 
 RandomizedSet::RandomizedSet() {}
 

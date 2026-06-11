@@ -1,5 +1,6 @@
 #pragma once
 #include "market_data_parser.hpp"
+#include <stdexcept>
 #include <vector>
 
 class JSONParser : public IMarketDataParser {

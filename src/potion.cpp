@@ -1,9 +1,12 @@
-#include<array>
 #include <potion.hpp>
-#include <string>
+
+#include <array>
+#include <cmath>
+#include <cstdint>
 #include <ostream>
 #include <sstream>
-#include <strstream>
+#include <stdexcept>
+#include <string>
 
 using ui = unsigned int;
 using uch = unsigned char;

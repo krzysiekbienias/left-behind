@@ -1,5 +1,6 @@
 #include "moving_average.hpp"
 
+#include <stdexcept>
 
 MovingAverage::MovingAverage(int size) : m_size(size) {
 };

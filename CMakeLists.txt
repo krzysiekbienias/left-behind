@@ -1,17 +1,19 @@
 cmake_minimum_required(VERSION 3.16)
 project(left_behind LANGUAGES CXX)
 
-set(CMAKE_OSX_SYSROOT
-        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
-        CACHE PATH "" FORCE
-)
-
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Remove conflicting CommandLineTools SDK path that clashes with Xcode sysroot
 if(APPLE)
+    set(CMAKE_OSX_SYSROOT
+            "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
+            CACHE PATH "" FORCE
+    )
+    set(CMAKE_OSX_ARCHITECTURES arm64)
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "15.3.2")
+
+    # Remove conflicting CommandLineTools SDK path that clashes with Xcode sysroot
     list(REMOVE_ITEM CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES
         "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include"
         "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1")
@@ -19,22 +21,21 @@ if(APPLE)
         "${CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES}" CACHE STRING "" FORCE)
 endif()
 
-set(CMAKE_OSX_ARCHITECTURES arm64)
-set(CMAKE_OSX_DEPLOYMENT_TARGET "15.3.2")
-
 find_package(spdlog REQUIRED)
 find_package(fmt REQUIRED)
 find_package(nlohmann_json REQUIRED)
-# cpr pulls in FindCURL; without this, CURL often resolves to Command Line Tools SDK
-# and adds -isystem .../CommandLineTools/.../usr/include, which breaks libc++ with Xcode -isysroot.
-if(APPLE)
-    unset(CURL_INCLUDE_DIR CACHE)
-    unset(CURL_LIBRARY CACHE)
-    unset(CURL_LIBRARY_RELEASE CACHE)
-    set(CURL_ROOT "${CMAKE_OSX_SYSROOT}/usr" CACHE PATH "" FORCE)
+
+find_package(pugixml QUIET)
+if(NOT pugixml_FOUND)
+    include(FetchContent)
+    FetchContent_Declare(
+            pugixml
+            GIT_REPOSITORY https://github.com/zeux/pugixml.git
+            GIT_TAG v1.14
+    )
+    FetchContent_MakeAvailable(pugixml)
 endif()
-find_package(cpr REQUIRED)
-find_package(pugixml REQUIRED)
+
 find_package(GTest REQUIRED)
 
 file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS src/*.cpp)
@@ -61,17 +62,18 @@ target_include_directories(project_lib
         ${CMAKE_SOURCE_DIR}/utils
 )
 
-# Homebrew jako SYSTEM (żeby nie mieszało warningów i kolejności)
-target_include_directories(project_lib
-        SYSTEM PUBLIC
-        /opt/homebrew/include
-)
+if(APPLE AND EXISTS "/opt/homebrew/include")
+    # Homebrew jako SYSTEM (żeby nie mieszało warningów i kolejności)
+    target_include_directories(project_lib
+            SYSTEM PUBLIC
+            /opt/homebrew/include
+    )
+endif()
 
 target_link_libraries(project_lib
         PUBLIC
         spdlog::spdlog
         fmt::fmt
-        cpr::cpr
         nlohmann_json::nlohmann_json
         pugixml::pugixml
 )

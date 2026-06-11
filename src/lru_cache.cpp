@@ -1,5 +1,6 @@
 #include "lru_cache.hpp"
 
+#include <algorithm>
 #include <deque>
 #include <unordered_map>
 
