@@ -19,10 +19,14 @@ bool RandomizedSet::insert(int val) {
 }
 
 bool RandomizedSet::remove(int val) {
-//later
+    (void)val;
+    return false;
 }
 
 int RandomizedSet::getRandom() {
-    int randomIdx=std::rand()%m_v.size();
+    if (m_v.empty()) {
+        return 0;
+    }
+    int randomIdx = std::rand() % m_v.size();
     return m_v[randomIdx];
 }
