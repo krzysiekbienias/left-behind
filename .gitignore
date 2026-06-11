@@ -76,3 +76,9 @@ Thumbs.dbľ
 
 # === foders with data ===
 data/
+
+# --- Cache
+.cache 
+
+# === compile commands ===
+compile_commands.json
