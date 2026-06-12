@@ -1,4 +1,16 @@
-{"STANDARISED_INPUT":"/Users/krzysztofbienias/Documents/dev_cpp/left-behind/data/standarised_input",
-    "ORDER_MATCHING":"/Users/krzysztofbienias/Documents/dev_cpp/left-behind/data/order_matching",
-  "STUDENTS_DATA":"/Users/krzysztofbienias/Documents/dev_cpp/left-behind/data/students"}
- 
+{
+  "STANDARISED_INPUT": "data/standarised_input",
+  "ORDER_MATCHING": "data/order_matching",
+  "STUDENTS_DATA": "data/students",
+  "DATA": {
+    "SYMBOLE": "data/matura2025/symbole_przyklad.txt",
+    "SYMBOLE_2": "data/matura2025/symbole_przyklad_2.txt",
+    "SYMBOLE_FULL": "data/matura2025/symbole.txt",
+    "DRON": "data/matura2025/dron.txt",
+    "DRON_PRZYKLAD": "data/matura2025/dron_przyklad.txt",
+    "LAZIKI": "data/matura2025/laziki.txt",
+    "MARTIANEUM": "data/matura2025/martianeum.txt",
+    "OBSZARY": "data/matura2025/obszary.txt",
+    "POMIARY": "data/matura2025/pomiary.txt"
+  }
+}
