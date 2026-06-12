@@ -88,11 +88,3 @@ enable_testing()
 add_executable(test_environment ${TEST_FILES})
 target_link_libraries(test_environment PRIVATE project_lib GTest::gtest_main)
 add_test(NAME AllTests COMMAND test_environment)
-
-# Dedicated test target for LRU v2 to avoid stale discovery/cache confusion.
-if(EXISTS "${CMAKE_SOURCE_DIR}/unit_tests/test_lru_cache_v2.cpp")
-    add_executable(lru_cache_v2_tests
-            unit_tests/test_lru_cache_v2.cpp)
-    target_link_libraries(lru_cache_v2_tests PRIVATE project_lib GTest::gtest_main)
-    add_test(NAME LRUCacheV2TestsOnly COMMAND lru_cache_v2_tests)
-endif()
