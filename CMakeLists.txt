@@ -81,7 +81,7 @@ target_link_libraries(project_lib
 if(EXISTS "${CMAKE_SOURCE_DIR}/src/main.cpp")
     add_executable(left_behind src/main.cpp)
     target_link_libraries(left_behind PRIVATE project_lib)
-    target_compile_definitions(left_behind PRIVATE "CONFIG_PATH=\"config/config.json\"")
+    target_compile_definitions(left_behind PRIVATE "CONFIG_PATH=\"${CMAKE_SOURCE_DIR}/config.json\"")
 endif()
 
 enable_testing()
