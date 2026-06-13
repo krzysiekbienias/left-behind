@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
-BUILD_DIR="${ROOT}/cmake-build-debug"
+BUILD_DIR="${ROOT}/build"
 TEST_BIN="${BUILD_DIR}/test_environment"
 
 usage() {

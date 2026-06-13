@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
-BUILD_DIR="${ROOT}/cmake-build-debug"
+BUILD_DIR="${ROOT}/build"
 TARGET="${1:-all}"
 
 echo "🏗️  Building target '${TARGET}' in ${BUILD_DIR}..."
