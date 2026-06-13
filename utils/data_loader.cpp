@@ -54,4 +54,23 @@ std::string readAll(const std::string& path) {
     return buffer.str();
 }
 
+std::string outputPathFor(const std::string& filename, const std::string& configPath) {
+    std::ifstream file(configPath);
+    if (!file) {
+        throw std::runtime_error("Cannot open config: " + configPath);
+    }
+
+    nlohmann::json cfg;
+    file >> cfg;
+
+    std::filesystem::path outputDir = cfg.value("OUTPUT", "output");
+    if (outputDir.is_relative()) {
+        outputDir = std::filesystem::path(configPath).parent_path() / outputDir;
+    }
+
+    std::filesystem::create_directories(outputDir);
+    return (outputDir / filename).string();
+}
+
+
 }

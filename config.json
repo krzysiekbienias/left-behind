@@ -2,6 +2,7 @@
   "STANDARISED_INPUT": "data/standarised_input",
   "ORDER_MATCHING": "data/order_matching",
   "STUDENTS_DATA": "data/students",
+  "OUTPUT": "output",
   "DATA": {
     "SYMBOLE": "data/matura2025/symbole_przyklad.txt",
     "SYMBOLE_2": "data/matura2025/symbole_przyklad_2.txt",
