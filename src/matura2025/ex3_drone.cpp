@@ -1,7 +1,9 @@
 # include "matura2025/ex3_drone.hpp"
+#include <cstddef>
 #include <iostream>
 # include <numeric>
 #include<fstream>
+#include <algorithm>
 
 
 
@@ -31,8 +33,7 @@ void gcdPairs(int a,int b,int& counter){
     }
 }
 
-Point endVector(std::pair<int,int> disp,
-                Point p) {
+Point endVector(std::pair<int,int> disp, Point p) {
     return {p.x+disp.first,p.y+disp.second};
 }
 
@@ -50,4 +51,25 @@ int pointsInSquare(const std::vector<Point>& coordinates) {
         if (isWithinSquare(p)) cnt++;
     }
     return cnt;
+}
+
+
+std::vector<Point> findThreePoints(std::vector<Point>& points){
+    size_t n=points.size();
+    std::sort(points.begin(),points.end());
+
+    for(int i =0; i<n;i++){
+        for (int j=i+1; j<n; j++) {
+            //nieparzysta sume wspolrzednych nie ma co sprawdzac
+        if((points[i].x+points[j].x)%2!=0 ||(points[i].y+points[j].y)%2!=0 ){
+            continue;
+        }
+        Point mid={(points[i].x+points[j].x)/2,(points[i].y+points[j].y)/2};
+        if(std::binary_search(points.begin(),points.end(),mid)){
+            return {points[i],points[j],mid};
+        }
+        }
+
+    }
+    return {};
 }
