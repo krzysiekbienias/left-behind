@@ -18,22 +18,20 @@ bool isSymbolPalindrome(std::string symbol) {
   return true;
 }
 
-char symbolToInt(char symbol) {
-  if (symbol == '+')
-    return '1';
-  else if (symbol == 'o')
-    return '0';
-  else
-    return '2';
+int symbolToInt(const std::string&  line) {
+  int res=0;
+  for (char ch:line){
+      res*=3;
+      if (ch == '+')
+         res+=1;
+      else if (ch == 'o')
+          res+=0;
+      else if( ch=='*')
+          res+=2;
+  }
+  return res;
 }
 
-int fromTernaryToDecimal(const std::string &ternary) {
-  int result = 0;
-  for (char ch : ternary) {
-    result = result * 3 + (ch - '0');
-  }
-  return result;
-}
 
 bool isHomegenousBlock(const std::vector<std::string> &grid, int row, int col) {
   char ch = grid[row][col]; // top left
@@ -46,19 +44,17 @@ bool isHomegenousBlock(const std::vector<std::string> &grid, int row, int col) {
   return true;
 }
 
-void countHomegenous3x3Squares(const std::vector<std::string> &grid) {
-  int count = 0;
+std::vector<std::pair<int,int>> centerOfSquare(const std::vector<std::string> &grid, int &nbOfSquares) {
+  std::vector<std::pair<int,int>> centers;
   int rows = grid.size();
   int cols = grid[0].size();
-
   for (int i = 0; i <= rows - 3; ++i) {
     for (int j = 0; j <= cols - 3; ++j) {
       if (isHomegenousBlock(grid, i, j)) {
-        std::cout << ++count << " " << i + 2 << " " << j + 2
-                  << '\n'; // becasue in challange we had indeces from 1 for
-                           // cols and rows
-      }
+        nbOfSquares++;
+        centers.push_back({i+2,j+2});
     }
   }
-
+}
+return centers;
 }
