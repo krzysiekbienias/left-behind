@@ -12,6 +12,10 @@
     "LAZIKI": "data/matura2025/laziki.txt",
     "MARTIANEUM": "data/matura2025/martianeum.txt",
     "OBSZARY": "data/matura2025/obszary.txt",
-    "POMIARY": "data/matura2025/pomiary.txt"
+    "POMIARY": "data/matura2025/pomiary.txt",
+    "PARY":"data/matura2026/pary.txt",
+    "PARY_PRZYKLAD":"data/matura2026/pary.txt",
+    "KORPO":"data/matura2026/korpo.txt",
+    "KORPO_PRZYKLADY":"data/matura2026/korpo_przyklady.txt"
   }
 }
