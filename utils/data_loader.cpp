@@ -6,6 +6,7 @@
 #include <stdexcept>
 
 #include <nlohmann/json.hpp>
+#include <string>
 
 namespace data_loader {
 
@@ -41,6 +42,25 @@ std::vector<std::string> readLines(const std::string& path) {
         lines.push_back(line);
     }
     return lines;
+}
+
+
+std::vector<std::pair<std::string,std::string>> readPairs(const std::string& path) {
+    std::ifstream in(path);
+    if (!in) throw std::runtime_error("Cannot open file: " + path);
+
+    std::vector<std::pair<std::string,std::string>> rows;
+    rows.reserve(1024); // optional
+
+    std::string a, b;
+    while (in >> a >> b) {
+        rows.emplace_back(a, b);
+    }
+
+    // If it stopped due to a parsing error (not just EOF), signal it.
+    if (!in.eof()) throw std::runtime_error("Parse error while reading: " + path);
+
+    return rows;
 }
 
 std::string readAll(const std::string& path) {

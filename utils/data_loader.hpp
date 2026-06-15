@@ -15,6 +15,8 @@ std::string pathFor(const std::string& key, const std::string& configPath = "con
 // Loads a whole file into a vector of lines (typical exam-task buffer).
 std::vector<std::string> readLines(const std::string& path);
 
+std::vector<std::pair<std::string,std::string>> readPairs(const std::string& path);
+
 // Loads a whole file into a single string.
 std::string readAll(const std::string& path);
 
