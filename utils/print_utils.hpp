@@ -25,13 +25,32 @@ namespace print_utils {
         }
     }
 
+    inline void printLabelPrefix(const std::optional<std::string>& label, bool multiline = false) {
+        if (label) std::cout << *label << (multiline ? ":\n" : ": ");
+    }
+
     template <typename T>
-    void printVector(const std::vector<T>& vec, const std::string& label = "", std::optional<size_t> limit = std::nullopt) {
-        if (!label.empty()) std::cout << label << ": ";
+    void printVectorImpl(const std::vector<T>& vec, std::optional<size_t> limit, std::optional<std::string> label) {
+        printLabelPrefix(label);
         const size_t count = effectivePrintCount(vec.size(), limit);
         for (size_t i = 0; i < count; ++i) std::cout << vec[i] << " ";
         printTruncatedSuffix(count, vec.size());
         std::cout << "\n";
+    }
+
+    template <typename T>
+    void printVector(const std::vector<T>& vec) {
+        printVectorImpl(vec, std::nullopt, std::nullopt);
+    }
+
+    template <typename T>
+    void printVector(const std::vector<T>& vec, size_t limit) {
+        printVectorImpl(vec, limit, std::nullopt);
+    }
+
+    template <typename T>
+    void printVector(const std::vector<T>& vec, const std::string& label, std::optional<size_t> limit = std::nullopt) {
+        printVectorImpl(vec, limit, label);
     }
 
     template <typename A, typename B>
@@ -41,16 +60,31 @@ namespace print_utils {
     }
 
     template <typename A, typename B>
-    void printVectorOfPairs(const std::vector<std::pair<A, B>>& vec, const std::string& label = "", std::optional<size_t> limit = std::nullopt) {
-        if (!label.empty()) std::cout << label << ": ";
+    void printVectorOfPairsImpl(const std::vector<std::pair<A, B>>& vec, std::optional<size_t> limit, std::optional<std::string> label) {
+        printLabelPrefix(label);
         const size_t count = effectivePrintCount(vec.size(), limit);
         for (size_t i = 0; i < count; ++i) {
             const auto& [first, second] = vec[i];
-            std::cout << "(" << first << ", " << second << ")\n";
+            std::cout << "(" << first << '\t' << second << ")\n";
         }
         if (count < vec.size()) {
             std::cout << "... (" << (vec.size() - count) << " more, total " << vec.size() << ")\n";
         }
+    }
+
+    template <typename A, typename B>
+    void printVectorOfPairs(const std::vector<std::pair<A, B>>& vec) {
+        printVectorOfPairsImpl(vec, std::nullopt, std::nullopt);
+    }
+
+    template <typename A, typename B>
+    void printVectorOfPairs(const std::vector<std::pair<A, B>>& vec, size_t limit) {
+        printVectorOfPairsImpl(vec, limit, std::nullopt);
+    }
+
+    template <typename A, typename B>
+    void printVectorOfPairs(const std::vector<std::pair<A, B>>& vec, const std::string& label, std::optional<size_t> limit = std::nullopt) {
+        printVectorOfPairsImpl(vec, limit, label);
     }
 
     template <typename T>
@@ -97,9 +131,8 @@ namespace print_utils {
         }
     }
 
-    // More complex: map<string, vector<int>>
-    void printMapOfVectors(const std::map<std::string, std::vector<int>>& m, const std::string& label = "", std::optional<size_t> limit = std::nullopt) {
-        if (!label.empty()) std::cout << label << ":\n";
+    void printMapOfVectorsImpl(const std::map<std::string, std::vector<int>>& m, std::optional<size_t> limit, std::optional<std::string> label) {
+        printLabelPrefix(label, true);
         for (const auto& [key, vec] : m) {
             std::cout << "  " << key << " -> ";
             const size_t count = effectivePrintCount(vec.size(), limit);
@@ -109,9 +142,20 @@ namespace print_utils {
         }
     }
 
-    // vector<set<int>>
-    void printVectorOfSets(const std::vector<std::set<int>>& v, const std::string& label = "", std::optional<size_t> limit = std::nullopt) {
-        if (!label.empty()) std::cout << label << ":\n";
+    void printMapOfVectors(const std::map<std::string, std::vector<int>>& m) {
+        printMapOfVectorsImpl(m, std::nullopt, std::nullopt);
+    }
+
+    void printMapOfVectors(const std::map<std::string, std::vector<int>>& m, size_t limit) {
+        printMapOfVectorsImpl(m, limit, std::nullopt);
+    }
+
+    void printMapOfVectors(const std::map<std::string, std::vector<int>>& m, const std::string& label, std::optional<size_t> limit = std::nullopt) {
+        printMapOfVectorsImpl(m, limit, label);
+    }
+
+    void printVectorOfSetsImpl(const std::vector<std::set<int>>& v, std::optional<size_t> limit, std::optional<std::string> label) {
+        printLabelPrefix(label, true);
         const size_t count = effectivePrintCount(v.size(), limit);
         for (size_t i = 0; i < count; ++i) {
             std::cout << "  [" << i << "]: ";
@@ -121,6 +165,18 @@ namespace print_utils {
         if (count < v.size()) {
             std::cout << "  ... (" << (v.size() - count) << " more sets, total " << v.size() << ")\n";
         }
+    }
+
+    void printVectorOfSets(const std::vector<std::set<int>>& v) {
+        printVectorOfSetsImpl(v, std::nullopt, std::nullopt);
+    }
+
+    void printVectorOfSets(const std::vector<std::set<int>>& v, size_t limit) {
+        printVectorOfSetsImpl(v, limit, std::nullopt);
+    }
+
+    void printVectorOfSets(const std::vector<std::set<int>>& v, const std::string& label, std::optional<size_t> limit = std::nullopt) {
+        printVectorOfSetsImpl(v, limit, label);
     }
 
     template <typename K, typename V>
