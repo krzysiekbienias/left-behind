@@ -131,7 +131,9 @@ namespace print_utils {
         }
     }
 
-    void printMapOfVectorsImpl(const std::map<std::string, std::vector<int>>& m, std::optional<size_t> limit, std::optional<std::string> label) {
+    void printMapOfVectorsImpl(const std::map<std::string, std::vector<int>>& m,
+                               std::optional<size_t> limit,
+                               const std::optional<std::string>& label) {
         printLabelPrefix(label, true);
         for (const auto& [key, vec] : m) {
             std::cout << "  " << key << " -> ";
@@ -154,7 +156,8 @@ namespace print_utils {
         printMapOfVectorsImpl(m, limit, label);
     }
 
-    void printVectorOfSetsImpl(const std::vector<std::set<int>>& v, std::optional<size_t> limit, std::optional<std::string> label) {
+    void printVectorOfSetsImpl(const std::vector<std::set<int>>& v, std::optional<size_t> limit,
+                               const std::optional<std::string>& label) {
         printLabelPrefix(label, true);
         const size_t count = effectivePrintCount(v.size(), limit);
         for (size_t i = 0; i < count; ++i) {
@@ -216,16 +219,14 @@ void printUnorderedMapOfUnorderedSets(const std::unordered_map<K, std::unordered
     }
 }
 
-void printBoxedLabel(const std::string& label, int totalWidth = 40) {
+void printBoxedLabel(const std::string& label, int total_width = 40) {
     const int padding = 2; // for '| ' and ' |'
-    int contentWidth = totalWidth - padding;
+    int content_width = total_width - padding;
 
-    std::cout << "\n+" << std::string(contentWidth, '=') << "+\n";
-    std::cout << "| " << label << std::string(contentWidth - label.length(), ' ') << "|\n";
-    std::cout << "+" << std::string(contentWidth, '=') << "+\n";
+    std::cout << "\n+" << std::string(content_width, '=') << "+\n";
+    std::cout << "| " << label << std::string(content_width - label.length(), ' ') << "|\n";
+    std::cout << "+" << std::string(content_width, '=') << "+\n";
 }
-
-
 }
 
 
