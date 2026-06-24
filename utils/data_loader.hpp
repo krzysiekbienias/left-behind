@@ -10,7 +10,7 @@ namespace data_loader {
 // Resolves a data file path by key from the "DATA" section of config.json.
 // Relative paths are resolved against the config file's directory,
 // so it works regardless of the current working directory.
-std::string pathFor(const std::string& key, const std::string& configPath = "config.json");
+std::string pathFor(const std::string& key, const std::string& config_path = "config.json");
 
 // Loads a whole file into a vector of lines (typical exam-task buffer).
 std::vector<std::string> readLines(const std::string& path);
@@ -23,8 +23,8 @@ std::string readAll(const std::string& path);
 // Resolves a path inside the output directory ("OUTPUT" in config.json,
 // default "output", relative to the config file's directory).
 // Creates the directory if it does not exist yet.
-std::string outputPathFor(const std::string& filename, const std::string& configPath = "config.json");
-
+std::string outputPathFor(const std::string& filename,
+                          const std::string& config_path = "config.json");
 
 template <typename T>
 void writeLines(const std::string& path, const std::vector<T>& elements) {
