@@ -1,0 +1,16 @@
+[project]
+name = "left-behind"
+version = "0.1.0"
+description = "Python counterparts and small scripts next to the C++ playground"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["python"]
+testpaths = ["python"]
+addopts = "-q"
