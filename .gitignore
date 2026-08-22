@@ -74,11 +74,26 @@ Thumbs.dbľ
 *.swo
 *.tmp
 
-# === foders with data ===
+# === folders with data ===
 data/
+# --- output data
+output/
+
 
 # --- Cache
-.cache 
+.cache
+
+# === Python / uv ===
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+
+
+
 
 # === compile commands ===
 compile_commands.json

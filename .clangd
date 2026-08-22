@@ -1,3 +1,9 @@
 CompileFlags:
   Remove:
     - -isystem/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include
+
+Diagnostics:
+  UnusedIncludes: Strict
+  ClangTidy:
+    Add: [bugprone-*, performance-*, readability-*, modernize-*]
+    Remove: [modernize-use-trailing-return-type, modernize-avoid-c-arrays]
