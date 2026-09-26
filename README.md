@@ -9,10 +9,12 @@
 ## 🗂️ Project Structure
 left-behind/
 ├── CMakeLists.txt        # Top-level build configuration
+├── pyproject.toml        # uv / Python project (counterparts and small scripts)
 ├── config.json           # Central configuration used by various modules
 ├── data/                 # Sample input files (CSV, JSON, etc.)
 ├── header/               # Shared headers used across modules
 ├── src/                  # Main source code files (grouped by topic/project)
+├── python/               # Python versions of tasks and small standalone scripts
 ├── unit_tests/           # Google Test-based unit tests for all modules
 ├── utils/                # Utility functions: I/O helpers, parsers, etc.
 ├── xcode_build/          # Optional directory for Xcode build integration
@@ -34,6 +36,26 @@ make
 
 To rebuild from scratch 
 ./rebuild.sh
+
+## 🐍 Python (uv)
+
+Small Python projects and second versions of C++ tasks live in `python/`. The environment is managed by [uv](https://docs.astral.sh/uv/).
+
+```bash
+# create the virtualenv and install deps (pytest, ...)
+uv sync
+
+# run a script
+uv run python python/twoja_nazwa.py
+
+# run Python tests
+uv run pytest
+# or:
+scripts/test/run_python.sh
+```
+
+Add a runtime package with `uv add requests`, a test/dev tool with `uv add --dev ruff`.
+
 🔑 Configuration
 
 The project uses config.json for defining API keys, feature flags, and runtime options.

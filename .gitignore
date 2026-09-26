@@ -83,6 +83,9 @@ output/
 # --- Cache
 .cache
 
+# === Docs / LaTeX (local only: tex, pdf, aux) ===
+docs/
+
 # === Python / uv ===
 .venv/
 __pycache__/
