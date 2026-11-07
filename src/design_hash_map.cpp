@@ -11,8 +11,9 @@ void MyHashMap::put(int key, int value) {
             v=value;
             return;
         }
-        bucket.emplace_back(key,value);
+       
     }
+    bucket.emplace_back(key,value);
 
     }
 

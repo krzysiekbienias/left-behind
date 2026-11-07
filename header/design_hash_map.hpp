@@ -16,5 +16,7 @@ private:
     static const int BUCKETS=10007;
     std::vector<std::list<std::pair<int,int>>> table_;
     //helper function
-    int hash (int key);
+    int hash (int key){
+        return key%BUCKETS;
+    };
 };
