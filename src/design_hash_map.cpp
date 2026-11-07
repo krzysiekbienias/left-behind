@@ -2,43 +2,41 @@
 #include <list>
 #include <design_hash_map.hpp>
 
-MyHashMap::MyHashMap(): m_hm(m_n){}
+MyHashMap::MyHashMap(): table_(BUCKETS){}
 
 void MyHashMap::put(int key, int value) {
-    int index=key%m_n;
-    std::list<std::pair<int,int>>& ll=m_hm[index];
-    for (auto it=ll.begin();it!=ll.end();++it) {
-        if (it->first==key) {
-            it->second=value;
+    auto &bucket=table_[hash(key)];
+    for (auto& [k, v] : bucket) {
+        if(k==key){
+            v=value;
             return;
         }
+        bucket.emplace_back(key,value);
+    }
 
     }
 
-    ll.push_back({key,value});
-}
+    
+
 
 int MyHashMap::get(int key) {
-    int index=key%m_n;
-    std::list<std::pair<int,int>>& ll=m_hm[index];
-    for (auto it=ll.begin();it!=ll.end();++it) {
-        if (it->first==key) {
-            return it->second;
+    const auto & bucket=table_[hash(key)];
+    for (const auto & [k,v]:bucket){
+        if(k==key){
+            return v;
         }
-
     }
     return -1;
-}
+    }
+
 
 void MyHashMap::remove(int key) {
-    int index=key%m_n;
-    std::list<std::pair<int,int>>& ll=m_hm[index];
-    for (auto it=ll.begin();it!=ll.end();++it) {
-        if (it->first==key) {
-            ll.erase(it);
+    auto &bucket =table_[hash(key)];
+    //linear traverse through ll
+    for (auto it=bucket.begin();it!=bucket.end();++it){
+        if(it->first==key){
+            bucket.erase(it);
             return;
         }
-
     }
-    return;
 }
